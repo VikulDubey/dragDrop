@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/f84b24b31a.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            background-color: var(--primary-color);
+        }
+
+        :root {
+            --primary-color: #0b0423;
+            --secondary-color: #fff;
+            --bg-color: #e91e63
+        }
+
+        #firstDiv,
+        #secondDiv {
+            border: 2px dashed var(--secondary-color);
+            height: 15rem;
+            width: 12rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .listItem {
+            border: 1px solid var(--secondary-color);
+            padding: 0.4rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            color: var(--secondary-color);
+            background-color: var(--bg-color);
+            width: 80%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="firstDiv">
+            <div draggable="true" class="listItem"><i class="fa-solid fa-grip-vertical"></i>Item 1</div>
+            <div draggable="true" class="listItem"><i class="fa-solid fa-grip-vertical"></i>Item 2</div>
+            <div draggable="true" class="listItem"><i class="fa-solid fa-grip-vertical"></i>Item 3</div>
+            <div draggable="true" class="listItem"><i class="fa-solid fa-grip-vertical"></i>Item 4</div>
+        </div>
+        <div id="secondDiv"></div>
+    </div>
+    <script>
+        const firstDiv = document.querySelector('#firstDiv');
+        const secondDiv = document.querySelector('#secondDiv');
+        const allItems = document.querySelectorAll(".listItem");
+        allItems.forEach((item) => {
+            item.addEventListener("dragstart", (e) => {
+                let selectedItem = e.target;
+                secondDiv.addEventListener("dragover", (e) => {
+                    e.preventDefault();
+                })
+                secondDiv.addEventListener("drop", (e) => {
+                    secondDiv.appendChild(selectedItem);
+                    selectedItem = null;
+                })
+                firstDiv.addEventListener("dragover", (e) => {
+                    e.preventDefault();
+                })
+                firstDiv.addEventListener("drop", (e) => {
+                    firstDiv.appendChild(selectedItem);
+                    selectedItem = null;
+                })
+            })
+        })
+
+
+
+    </script>
+</body>
+
+</html>
